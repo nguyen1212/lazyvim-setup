@@ -1,9 +1,7 @@
 return {
   {
     -- go extension
-    {
-      "fatih/vim-go",
-    },
+    "fatih/vim-go",
     "AndrewRadev/splitjoin.vim",
     "fatih/gomodifytags",
     {

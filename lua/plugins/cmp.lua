@@ -113,4 +113,15 @@ return {
       require("cmp").setup(opts)
     end,
   },
+  {
+
+    "neovim/nvim-lspconfig",
+    event = "LazyFile",
+    opts = {
+      -- options for vim.diagnostic.config()
+      diagnostics = {
+        underline = true,
+      },
+    },
+  },
 }

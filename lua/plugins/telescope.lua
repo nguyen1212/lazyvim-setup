@@ -17,11 +17,6 @@ return {
   -- yanky
   {
     "gbprod/yanky.nvim",
-    dependencies = { { "kkharji/sqlite.lua", enabled = not jit.os:find("Windows") } },
-    opts = {
-      highlight = { timer = 250 },
-      ring = { storage = jit.os:find("Windows") and "shada" or "sqlite" },
-    },
     config = function()
       local utils = require("yanky.utils")
       local mapping = require("yanky.telescope.mapping")
