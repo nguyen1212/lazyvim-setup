@@ -38,7 +38,7 @@ return {
     },
     keys = {
       {
-        "<c-d>",
+        "<c-j>",
         function()
           if not require("noice.lsp").scroll(4) then
             return "<c-f>"
@@ -50,7 +50,7 @@ return {
         mode = { "i", "n", "s" },
       },
       {
-        "<c-u>",
+        "<c-k>",
         function()
           if not require("noice.lsp").scroll(-4) then
             return "<c-b>"
