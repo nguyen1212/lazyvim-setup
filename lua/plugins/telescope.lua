@@ -1,12 +1,38 @@
 return {
   {
     "nvim-telescope/telescope.nvim",
+    dependencies = { "nvim-telescope/telescope-live-grep-args.nvim" },
     keys = {
       { "<leader><leader>", false },
-      { "<leader>ff", "<cmd>Telescope find_files hidden=true<CR>", desc = "Find Files (including hidden files)" },
-      { "<leader>fb", "<cmd>Telescope buffers<CR>", desc = "Find Buffers" },
-      { "gr", "<cmd>Telescope lsp_references<CR>", desc = "Goto References" },
-      { "gy", "<cmd>Telescope lsp_type_definition<CR>", desc = "Goto Type Definition" },
+      { "<leader>/", false },
+      {
+        "<leader>ff",
+        -- "<cmd>Telescope find_files hidden=false<CR>",
+        function(opts)
+          opts = opts or {}
+          -- always find files from top level dir of git
+          opts.cwd = vim.fn.systemlist("git rev-parse --show-toplevel")[1]
+          require("telescope.builtin").find_files(opts)
+        end,
+        desc = "Find files",
+      },
+      {
+        "<leader>fh",
+        "<cmd>Telescope find_files hidden=true<CR>",
+        desc = "Find files (including hidden files)",
+      },
+      { "<leader>fb", "<cmd>Telescope buffers<CR>", desc = "Find buffers" },
+      { "<leader>fn", "<cmd>Telescope noice<CR>", desc = "Find noice history" },
+      {
+        "gr",
+        function()
+          require("telescope.builtin").lsp_references({
+            file_ignore_patterns = { "%_test.go" },
+          })
+        end,
+        desc = "Goto references",
+      },
+      { "gy", "<cmd>Telescope lsp_type_definition<CR>", desc = "Goto type definition" },
       {
         "gi",
         function()
@@ -14,14 +40,14 @@ return {
             file_ignore_patterns = { "[^a-z]mock[^a-z]", "Mock[^a-z]" },
           })
         end,
-        desc = "Goto Implementations",
+        desc = "Goto implementations",
       },
       {
         "<leader>g",
         function()
           require("telescope").extensions.live_grep_args.live_grep_args()
         end,
-        desc = "Grep Strings",
+        desc = "Grep strings",
       },
       {
         "<leader>fs",
@@ -37,15 +63,26 @@ return {
             symbol_width = 50,
           })
         end,
-        desc = "Find Symbols",
+        desc = "Find symbols",
       },
-      { "gb", "<cmd>Telescope git_branches<CR>", desc = "Find Git Branches" },
+      { "gb", "<cmd>Telescope git_branches<CR>", desc = "Find git branches" },
     },
     opts = {
       defaults = {
-        file_ignore_patterns = { "%_test.go" },
         mappings = {
           i = {
+            ["<C-d>"] = function(prompt_bufnr)
+              return require("telescope.actions.set").shift_selection(prompt_bufnr, 4)
+            end,
+            ["<C-u>"] = function(prompt_bufnr)
+              return require("telescope.actions.set").shift_selection(prompt_bufnr, -4)
+            end,
+            ["<C-j>"] = require("telescope.actions").preview_scrolling_down,
+            ["<C-k>"] = require("telescope.actions").preview_scrolling_up,
+            ["<C-h>"] = require("telescope.actions").preview_scrolling_left,
+            ["<C-l>"] = require("telescope.actions").preview_scrolling_right,
+          },
+          n = {
             ["<C-d>"] = function(prompt_bufnr)
               return require("telescope.actions.set").shift_selection(prompt_bufnr, 4)
             end,
@@ -62,7 +99,7 @@ return {
   {
     "nvim-telescope/telescope-fzf-native.nvim",
     build = "make",
-    enabled = vim.fn.executable("make") == 1,
+    enabled = vim.fn.executable("make") == 1, -- if make command is available
     config = function()
       require("telescope").load_extension("fzf")
     end,
@@ -71,6 +108,17 @@ return {
   -- yanky
   {
     "gbprod/yanky.nvim",
+    keys = {
+      {
+        -- yank
+        "<leader>yh",
+        function()
+          require("telescope").extensions.yank_history.yank_history({})
+        end,
+        desc = "Open Yank History",
+        silent = true,
+      },
+    },
     config = function()
       local utils = require("yanky.utils")
       local mapping = require("yanky.telescope.mapping")
@@ -98,5 +146,4 @@ return {
       })
     end,
   },
-  { "nvim-telescope/telescope-live-grep-args.nvim" },
 }

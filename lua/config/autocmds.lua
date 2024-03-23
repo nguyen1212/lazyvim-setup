@@ -11,9 +11,6 @@ vim.api.nvim_create_autocmd("VimEnter", {
     -- comment
     vim.cmd([[hi Comment term=bold  guifg=LightGreen]])
 
-    -- set diff relative to base
-    vim.cmd([[ let g:gitgutter_diff_base = 'head' | ":GitGutter<CR>" ]])
-
     -- vim.cmd([[ syntax on ]])
     -- vim.cmd([[ set re=0 ]])
     -- vim.cmd([[ lang en_US.UTF-8 ]])

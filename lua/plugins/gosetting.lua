@@ -4,6 +4,8 @@ return {
     {
       "fatih/vim-go",
       dependencies = "fatih/gomodifytags",
+      event = "BufEnter",
+      ft = "go",
       cmd = {
         "GoAlternate",
         "GoCoverage",
@@ -16,7 +18,14 @@ return {
       },
       keys = {
         { "<leader>aa", "<cmd>GoAlternate!<CR>", desc = "Open/Create go test file", ft = "go" },
-        { "<leader>t", "<cmd>GoTestFunc<CR>", desc = "Go test function", ft = "go" },
+        {
+          "<leader>t",
+          function()
+            vim.cmd([[GoTestFunc]])
+          end,
+          desc = "Go test function",
+          ft = "go",
+        },
         { "<leader><S-t>", "<cmd>GoTestFile<CR>", desc = "Go test file", ft = "go" },
         { "<leader>ae", "<plug>(go-alternate-edit)", desc = "Open go test file", ft = "go" },
         { "<leader>av", "<plug>(go-alternate-vertical)", desc = "Vertical split go test file", ft = "go" },
@@ -26,14 +35,17 @@ return {
         { "<leader>gat", "<cmd>GoAddTags<CR>", desc = "Add go tags", ft = "go" },
       },
       config = function()
-        vim.cmd([[do FileType]])
+        vim.cmd([[
+          let g:go_term_enabled = 1
+          let g:go_term_reuse = 1
+        ]])
       end,
     },
     "AndrewRadev/splitjoin.vim",
-    "fatih/gomodifytags",
     {
       "leoluz/nvim-dap-go",
       dependencies = { "mfussenegger/nvim-dap" },
+      enabled = false,
       config = true,
     },
     {

@@ -3,8 +3,16 @@ return {
   {
     "neovim/nvim-lspconfig",
     dependencies = {
-      "mason.nvim",
-      "williamboman/mason-lspconfig.nvim",
+      "hrsh7th/nvim-cmp",
+    },
+    keys = {
+      {
+        "<S-k>",
+        function()
+          require("cmp.entry").get_documentation()
+        end,
+        desc = "LSP documentation",
+      },
     },
     opts = {
       servers = {
@@ -50,6 +58,7 @@ return {
               staticcheck = true,
               directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
               semanticTokens = true,
+              -- analysisProgressReporting = false, -- stop indexing for new files (when written)
             },
           },
         },

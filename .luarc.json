@@ -1,0 +1,6 @@
+{
+    "diagnostics.globals": [
+        "sleeper",
+        "vim"
+    ]
+}
