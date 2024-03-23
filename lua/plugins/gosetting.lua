@@ -4,6 +4,8 @@ return {
     {
       "fatih/vim-go",
       dependencies = "fatih/gomodifytags",
+      -- event = "BufEnter",
+      ft = "go",
       cmd = {
         "GoAlternate",
         "GoCoverage",
@@ -15,41 +17,33 @@ return {
         "GoModReload",
       },
       keys = {
-        { "<leader>aa", "<cmd>GoAlternate!<CR>", desc = "Open/Create go test file", ft = "go" },
-        { "<leader>t", "<cmd>GoTestFunc<CR>", desc = "Go test function", ft = "go" },
-        { "<leader><S-t>", "<cmd>GoTestFile<CR>", desc = "Go test file", ft = "go" },
-        { "<leader>ae", "<plug>(go-alternate-edit)", desc = "Open go test file", ft = "go" },
-        { "<leader>av", "<plug>(go-alternate-vertical)", desc = "Vertical split go test file", ft = "go" },
-        { "<leader>ds", "<plug>(go-def-split)", desc = "Horizontal split go definition", ft = "go" },
-        { "<leader>dv", "<plug>(go-def-vertical)", desc = "Vertical split go definition", ft = "go" },
-        { "<leader>gfs", "<cmd>GoFillStruct<CR>", desc = "Fill go struct", ft = "go" },
-        { "<leader>gat", "<cmd>GoAddTags<CR>", desc = "Add go tags", ft = "go" },
+        { "<leader>aa", "<cmd>GoAlternate!<CR>", desc = "Open/Create go test file" },
+        {
+          "<leader>t",
+          function()
+            vim.cmd([[GoTestFunc]])
+          end,
+          desc = "Go test function",
+          ft = "go",
+        },
+        { "<leader><S-t>", "<cmd>GoTestFile<CR>", desc = "Go test file" },
+        { "<leader>ae", "<plug>(go-alternate-edit)", desc = "Open go test file" },
+        { "<leader>av", "<plug>(go-alternate-vertical)", desc = "Vertical split go test file" },
+        { "<leader>ds", "<plug>(go-def-split)", desc = "Horizontal split go definition" },
+        { "<leader>dv", "<plug>(go-def-vertical)", desc = "Vertical split go definition" },
+        { "<leader>gfs", "<cmd>GoFillStruct<CR>", desc = "Fill go struct" },
+        { "<leader>gat", "<cmd>GoAddTags<CR>", desc = "Add go tags" },
       },
       config = function()
-        vim.cmd([[do FileType]])
+        vim.cmd([[
+          let g:go_term_enabled = 1
+          let g:go_term_reuse = 1
+          let g:go_term_close_on_exit = 0
+        ]])
       end,
     },
-    "AndrewRadev/splitjoin.vim",
-    "fatih/gomodifytags",
-    {
-      "leoluz/nvim-dap-go",
-      dependencies = { "mfussenegger/nvim-dap" },
-      config = true,
-    },
-    {
-      "williamboman/mason.nvim",
-      opts = function(_, opts)
-        opts.ensure_installed = opts.ensure_installed or {}
-        vim.list_extend(opts.ensure_installed, {
-          "goimports",
-          "gofumpt",
-          "gopls",
-          "gomodifytags",
-          "impl",
-          "delve",
-        })
-      end,
-    },
+
+    -- formatters
     {
       "stevearc/conform.nvim",
       optional = true,

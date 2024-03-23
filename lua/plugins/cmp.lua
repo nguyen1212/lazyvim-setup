@@ -8,20 +8,12 @@ return {
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
-      "saadparwaiz1/cmp_luasnip",
-      "L3MON4D3/LuaSnip",
     },
     opts = function()
       local cmp = require("cmp")
-      local luasnip = require("luasnip")
       local defaults = require("cmp.config.default")()
       local types = require("cmp.types")
       return {
-        snippet = {
-          expand = function(args)
-            luasnip.lsp_expand(args.body) -- For `luasnip` users.
-          end,
-        },
         preselect = types.cmp.PreselectMode.None,
         completion = {
           completeopt = "menu,menuone,noinsert,noselect",
@@ -66,8 +58,21 @@ return {
           end,
         }),
         sources = cmp.config.sources({
-          { name = "nvim_lsp" },
-          { name = "path" },
+          {
+            name = "nvim_lsp",
+            group_index = 1,
+            priority = 100,
+          },
+          {
+            name = "copilot",
+            group_index = 1,
+            priority = 100,
+          },
+          {
+            name = "path",
+            group_index = 2,
+            priority = 90,
+          },
         }, {
           { name = "buffer" },
         }),
@@ -88,18 +93,10 @@ return {
         sorting = defaults.sorting,
       }
     end,
-    ---@param opts cmp.ConfigSchema
-    config = function(_, opts)
-      for _, source in ipairs(opts.sources) do
-        source.group_index = source.group_index or 1
-      end
-      require("cmp").setup(opts)
-    end,
   },
   {
-
     "neovim/nvim-lspconfig",
-    event = "LazyFile",
+    lazy = true,
     opts = {
       -- options for vim.diagnostic.config()
       diagnostics = {

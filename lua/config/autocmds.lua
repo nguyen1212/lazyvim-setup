@@ -11,22 +11,69 @@ vim.api.nvim_create_autocmd("VimEnter", {
     -- comment
     vim.cmd([[hi Comment term=bold  guifg=LightGreen]])
 
-    -- set diff relative to base
-    vim.cmd([[ let g:gitgutter_diff_base = 'head' | ":GitGutter<CR>" ]])
+    -- lsp highlight
+    vim.api.nvim_set_hl(0, "LspSignatureActiveParameter", {
+      -- bg = "#0000ff"
+      bold = true,
+      italic = true,
+      -- underline = true,
+    })
 
-    -- vim.cmd([[ syntax on ]])
-    -- vim.cmd([[ set re=0 ]])
-    -- vim.cmd([[ lang en_US.UTF-8 ]])
+    -- neotree highlight
+    local neotree_normal_hl_id = vim.fn.hlID("NeoTreeNormal")
+    local neotree_normal_bg = vim.fn.synIDattr(neotree_normal_hl_id, "bg#")
 
-    -- popup menu
-    vim.api.nvim_set_hl(0, "FloatBorder", { bg = "#46484A" })
+    vim.api.nvim_set_hl(0, "NeoTreeFloatNormal", { link = "Normal" })
+    vim.api.nvim_set_hl(0, "NeoTreeFloatBorder", { link = "Normal" })
+    vim.api.nvim_set_hl(0, "NeoTreeWinSeparator", {
+      -- bg = "#16161e",
+      -- fg = "#16161e",
+      -- blend = 100,
+      bg = neotree_normal_bg,
+      fg = neotree_normal_bg,
+    })
+
+    -- window highlight
+    local normal_hl_id = vim.fn.hlID("Normal")
+    local normal_bg = vim.fn.synIDattr(normal_hl_id, "bg#")
+    vim.api.nvim_set_hl(0, "FloatBorder", {
+      link = "Constant",
+      -- fg = "#27a1b9",
+      bg = normal_bg,
+    })
+    vim.api.nvim_set_hl(0, "FloatTitle", { link = "FloatBorder" })
     vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#46484A" })
+    vim.api.nvim_set_hl(0, "WinSeparator", { link = "Normal" })
+    vim.api.nvim_set_hl(0, "DapUIFloatNormal", { link = "Normal" })
+
+    -- telescope highlight
+    local tl_border_hl = vim.fn.hlID("TelescopeBorder")
+    local tl_border_fg = vim.fn.synIDattr(tl_border_hl, "fg#")
+    local tl_prompt_border_hl = vim.fn.hlID("TelescopePromptBorder")
+    local tl_prompt_border_fg = vim.fn.synIDattr(tl_prompt_border_hl, "fg#")
+    vim.api.nvim_set_hl(0, "TelescopeNormal", { bg = normal_bg })
+    vim.api.nvim_set_hl(0, "TelescopeBorder", { fg = tl_border_fg, bg = normal_bg })
+    vim.api.nvim_set_hl(0, "TelescopePromptBorder", { fg = tl_prompt_border_fg, bg = normal_bg })
+    vim.api.nvim_set_hl(0, "TelescopePromptTitle", { link = "TelescopePromptBorder" })
+
+    -- number highlight
+    vim.api.nvim_set_hl(0, "LineNr", { link = "qfLineNr" })
+    vim.api.nvim_set_hl(0, "CursorLineNr", { link = "Normal" })
+
+    -- popup menu highlight
     vim.api.nvim_set_hl(0, "Pmenu", { bg = "#46484A" })
     vim.api.nvim_set_hl(0, "PmenuSel", { bg = "#4f86c9" })
     vim.api.nvim_set_hl(0, "PmenuSbar", { bg = "#46484A" })
     vim.api.nvim_set_hl(0, "PmenuThumb", { bg = "#30619c" })
 
-    -- cmp menu
+    -- treesitter context
+    vim.api.nvim_set_hl(0, "TreesitterContext", {
+      bg = "#16161e",
+      bold = true,
+      default = false, -- set to true to respect existing default setting
+    })
+
+    -- cmp menu highlight
     vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
     vim.api.nvim_set_hl(0, "CmpItemAbbrDeprecated", {
       bg = "NONE",
