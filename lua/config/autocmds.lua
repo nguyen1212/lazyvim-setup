@@ -26,9 +26,6 @@ vim.api.nvim_create_autocmd("VimEnter", {
     vim.api.nvim_set_hl(0, "NeoTreeFloatNormal", { link = "Normal" })
     vim.api.nvim_set_hl(0, "NeoTreeFloatBorder", { link = "Normal" })
     vim.api.nvim_set_hl(0, "NeoTreeWinSeparator", {
-      -- bg = "#16161e",
-      -- fg = "#16161e",
-      -- blend = 100,
       bg = neotree_normal_bg,
       fg = neotree_normal_bg,
     })
@@ -38,11 +35,10 @@ vim.api.nvim_create_autocmd("VimEnter", {
     local normal_bg = vim.fn.synIDattr(normal_hl_id, "bg#")
     vim.api.nvim_set_hl(0, "FloatBorder", {
       link = "Constant",
-      -- fg = "#27a1b9",
       bg = normal_bg,
     })
     vim.api.nvim_set_hl(0, "FloatTitle", { link = "FloatBorder" })
-    vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#46484A" })
+    -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#46484A" })
     vim.api.nvim_set_hl(0, "WinSeparator", { link = "Normal" })
     vim.api.nvim_set_hl(0, "DapUIFloatNormal", { link = "Normal" })
 
@@ -74,6 +70,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
     })
 
     -- cmp menu highlight
+    vim.api.nvim_set_hl(0, "CmpDocNormalFloat", { bg = "#46484A" })
     vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
     vim.api.nvim_set_hl(0, "CmpItemAbbrDeprecated", {
       bg = "NONE",

@@ -66,7 +66,7 @@ return {
               staticcheck = true,
               directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
               semanticTokens = true,
-              analysisProgressReporting = false, -- stop indexing for new files (when written)
+              analysisProgressReporting = true, -- false: stop indexing for new files (when written)
             },
           },
         },

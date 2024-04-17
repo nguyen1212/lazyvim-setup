@@ -47,3 +47,4 @@ vim.keymap.set("n", "<leader>Q", ":cclose<CR>", silentOpt)
 
 -- comment
 vim.keymap.set("n", "<leader>/", "gcc", { remap = true, silent = true })
+vim.keymap.set("v", "<leader>/", "gc", { remap = true, silent = true })
