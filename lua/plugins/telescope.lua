@@ -1,7 +1,6 @@
 return {
   {
     "nvim-telescope/telescope.nvim",
-    -- lazy = true,
     dependencies = {
       "nvim-telescope/telescope-live-grep-args.nvim",
     },
@@ -10,11 +9,11 @@ return {
       { "<leader>/", false },
       {
         "<leader>ff",
-        -- "<cmd>Telescope find_files hidden=false<CR>",
         function(opts)
           opts = opts or {}
           -- always find files from top level dir of git
           opts.cwd = vim.fn.systemlist("git rev-parse --show-toplevel")[1]
+          opts.hidden = false
           require("telescope.builtin").find_files(opts)
         end,
         desc = "Find files",

@@ -38,7 +38,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
       bg = normal_bg,
     })
     vim.api.nvim_set_hl(0, "FloatTitle", { link = "FloatBorder" })
-    -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#46484A" })
+    vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#46484A" })
     vim.api.nvim_set_hl(0, "WinSeparator", { link = "Normal" })
     vim.api.nvim_set_hl(0, "DapUIFloatNormal", { link = "Normal" })
 
@@ -99,3 +99,17 @@ vim.api.nvim_create_autocmd("VimEnter", {
     })
   end,
 })
+
+function leave_snippet()
+  if
+    ((vim.v.event.old_mode == "s" and vim.v.event.new_mode == "n") or vim.v.event.old_mode == "i")
+    and require("luasnip").session.current_nodes[vim.api.nvim_get_current_buf()]
+    and not require("luasnip").session.jump_active
+  then
+    require("luasnip").unlink_current()
+  end
+end
+
+vim.api.nvim_command([[
+        autocmd ModeChanged * lua leave_snippet()
+    ]])

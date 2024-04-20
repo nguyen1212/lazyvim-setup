@@ -38,7 +38,7 @@ return {
 
           dapui.float_element("repl", {
             enter = true,
-            width = 40,
+            width = 50,
             height = 30,
           })
         end,
@@ -50,28 +50,42 @@ return {
         {
           elements = {
             {
+              id = "breakpoints",
+              size = 0.50,
+            },
+            {
+              id = "console",
+              size = 0.50,
+            },
+          },
+          position = "left",
+          size = 50,
+        },
+        {
+          elements = {
+            {
               id = "scopes",
               size = 1,
             },
           },
           position = "bottom",
-          size = 30,
-        },
-        {
-          elements = {
-            {
-              id = "breakpoints",
-              size = 0.25,
-            },
-            {
-              id = "stacks",
-              size = 0.25,
-            },
-          },
-          position = "left",
-          size = 40,
+          size = 20,
         },
       },
     },
+  },
+
+  -- test coverage
+  {
+    "andythigpen/nvim-coverage",
+    dependencies = "nvim-lua/plenary.nvim",
+    lazy = true,
+    keys = {
+      "<leader>tc",
+      "<cmd>CoverageShow<CR>",
+      silent = true,
+      desc = "Show test coverage",
+    },
+    config = true,
   },
 }
