@@ -3,9 +3,12 @@ return {
   {
     "FabijanZulj/blame.nvim",
     keys = {
-      { "gB", "<cmd> ToggleBlame window<CR>", desc = "Toggle git blame" },
-      { "gbf", "<cmd> ToggleBlame virtual<CR>", desc = "Toggle git blame float" },
+      { "gB", "<cmd>BlameToggle window<CR>", desc = "Toggle git blame" },
+      { "gbf", "<cmd>BlameToggle virtual<CR>", desc = "Toggle git blame float" },
     },
+    config = function()
+      require("blame").setup()
+    end,
   },
   {
     "sindrets/diffview.nvim",

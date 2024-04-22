@@ -1,6 +1,7 @@
 return {
   {
     "nvim-telescope/telescope.nvim",
+    -- tag = "0.1.6",
     dependencies = {
       "nvim-telescope/telescope-live-grep-args.nvim",
     },
@@ -12,7 +13,11 @@ return {
         function(opts)
           opts = opts or {}
           -- always find files from top level dir of git
-          opts.cwd = vim.fn.systemlist("git rev-parse --show-toplevel")[1]
+          local path = vim.loop.cwd() .. "/.git"
+          local ok, _ = vim.loop.fs_stat(path)
+          if ok then
+            opts.cwd = vim.fn.systemlist("git rev-parse --show-toplevel")[1]
+          end
           opts.hidden = false
           require("telescope.builtin").find_files(opts)
         end,
@@ -45,7 +50,7 @@ return {
         desc = "Goto implementations",
       },
       {
-        "<leader>g",
+        "<leader>fg",
         function(opts)
           opts = opts or {}
           opts.cwd = vim.fn.systemlist("git rev-parse --show-toplevel")[1]
@@ -70,6 +75,7 @@ return {
         desc = "Find symbols",
       },
       { "gb", "<cmd>Telescope git_branches<CR>", desc = "Find git branches" },
+      { "<leader>fp", "<cmd>Telescope neovim-project discover<CR>", desc = "Find projects" },
     },
     opts = {
       defaults = {

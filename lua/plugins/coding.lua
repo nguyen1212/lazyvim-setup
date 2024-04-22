@@ -88,4 +88,42 @@ return {
     },
     config = true,
   },
+
+  -- project management
+  {
+    "coffebar/neovim-project",
+    opts = {
+      projects = { -- define project roots
+        "~/Project/go/src/github.com/moneyforwardvietnam/*",
+        "~/.config/*",
+      },
+    },
+    last_session_on_startup = false,
+    dashboard_mode = true,
+    init = function()
+      -- enable saving the state of plugins in the session
+      vim.opt.sessionoptions:append("globals") -- save global variables that start with an uppercase letter and contain at least one lowercase letter.
+    end,
+    dependencies = {
+      { "nvim-lua/plenary.nvim" },
+      {
+        "nvim-telescope/telescope.nvim",
+      },
+      { "Shatur/neovim-session-manager" },
+    },
+    lazy = false,
+    priority = 100,
+  },
+  {
+    "Shatur/neovim-session-manager",
+    config = function(_, opts)
+      local config = require("session_manager.config")
+      opts.autoload_mode = config.AutoloadMode.CurrentDir
+      require("session_manager").setup(opts)
+    end,
+  },
+  {
+    "folke/persistence.nvim",
+    enabled = false,
+  },
 }
