@@ -6,10 +6,13 @@ vim.api.nvim_create_autocmd("VimEnter", {
   pattern = "*",
   callback = function()
     -- selection
-    vim.cmd([[hi Visual cterm=NONE guibg=#4f86c9]])
+    vim.cmd([[hi Visual cterm=NONE guibg=#366db0]])
 
     -- comment
     vim.cmd([[hi Comment term=bold  guifg=LightGreen]])
+
+    -- diff
+    -- vim.api.nvim_set_hl(0, "DiffChange", { link = "IncSearch" })
 
     -- lsp highlight
     vim.api.nvim_set_hl(0, "LspSignatureActiveParameter", {
@@ -18,17 +21,18 @@ vim.api.nvim_create_autocmd("VimEnter", {
       italic = true,
       -- underline = true,
     })
+    vim.api.nvim_set_hl(0, "NoicePopup", { bg = "#46484A" })
 
     -- neotree highlight
-    local neotree_normal_hl_id = vim.fn.hlID("NeoTreeNormal")
-    local neotree_normal_bg = vim.fn.synIDattr(neotree_normal_hl_id, "bg#")
+    -- local neotree_normal_hl_id = vim.fn.hlID("NeoTreeNormal")
+    -- local neotree_normal_bg = vim.fn.synIDattr(neotree_normal_hl_id, "bg#")
 
-    vim.api.nvim_set_hl(0, "NeoTreeFloatNormal", { link = "Normal" })
-    vim.api.nvim_set_hl(0, "NeoTreeFloatBorder", { link = "Normal" })
-    vim.api.nvim_set_hl(0, "NeoTreeWinSeparator", {
-      bg = neotree_normal_bg,
-      fg = neotree_normal_bg,
-    })
+    -- vim.api.nvim_set_hl(0, "NeoTreeFloatNormal", { link = "Normal" })
+    -- vim.api.nvim_set_hl(0, "NeoTreeFloatBorder", { link = "Normal" })
+    -- vim.api.nvim_set_hl(0, "NeoTreeWinSeparator", {
+    --   bg = neotree_normal_bg,
+    --   fg = neotree_normal_bg,
+    -- })
 
     -- window highlight
     local normal_hl_id = vim.fn.hlID("Normal")
@@ -38,7 +42,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
       bg = normal_bg,
     })
     vim.api.nvim_set_hl(0, "FloatTitle", { link = "FloatBorder" })
-    vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#46484A" })
+    -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#46484A" })
     vim.api.nvim_set_hl(0, "WinSeparator", { link = "Normal" })
     vim.api.nvim_set_hl(0, "DapUIFloatNormal", { link = "Normal" })
 
@@ -53,8 +57,8 @@ vim.api.nvim_create_autocmd("VimEnter", {
     vim.api.nvim_set_hl(0, "TelescopePromptTitle", { link = "TelescopePromptBorder" })
 
     -- number highlight
-    vim.api.nvim_set_hl(0, "LineNr", { link = "qfLineNr" })
-    vim.api.nvim_set_hl(0, "CursorLineNr", { link = "Normal" })
+    -- vim.api.nvim_set_hl(0, "LineNr", { link = "qfLineNr" })
+    -- vim.api.nvim_set_hl(0, "CursorLineNr", { link = "Normal" })
 
     -- popup menu highlight
     vim.api.nvim_set_hl(0, "Pmenu", { bg = "#46484A" })
@@ -100,15 +104,12 @@ vim.api.nvim_create_autocmd("VimEnter", {
   end,
 })
 
-vim.api.nvim_create_autocmd("ModeChanged", {
+vim.api.nvim_create_autocmd("BufEnter", {
+  pattern = "*_test.go",
+  group = vim.api.nvim_create_augroup("_test_go_file", { clear = true }),
   callback = function()
-    if
-      ((vim.v.event.old_mode == "s" and vim.v.event.new_mode == "n") or vim.v.event.old_mode == "i")
-      and require("luasnip").session.current_nodes[vim.api.nvim_get_current_buf()]
-      and not require("luasnip").session.jump_active
-    then
-      require("luasnip").unlink_current()
-    end
+    vim.diagnostic.enable(false, { bufnr = 0 })
+    vim.treesitter.stop()
   end,
 })
 

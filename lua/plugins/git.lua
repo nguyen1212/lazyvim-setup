@@ -15,6 +15,7 @@ return {
     keys = {
       { "dfo", "<cmd>DiffviewOpen<CR>", desc = "Open diff view" },
       { "dfc", "<cmd>DiffviewClose<CR>", desc = "Close diff view" },
+      { "dfh", "<cmd>DiffviewFileHistory<CR>", desc = "Open diff history" },
     },
   },
   {
@@ -40,15 +41,15 @@ return {
       -- stylua: ignore start
       map({"n", "x", "o"}, "]x", gs.next_hunk, "Next hunk")
       map({"n", "x", "o"}, "[x", gs.prev_hunk, "Prev hunk")
-      map({ "n", "v" }, "<leader>ghs", ":Gitsigns stage_hunk<CR>", "Stage hunk")
-      map({ "n", "v" }, "<leader>ghr", ":Gitsigns reset_hunk<CR>", "Reset hunk")
-      map("n", "<leader>ghS", gs.stage_buffer, "Stage Buffer")
-      map("n", "<leader>ghu", gs.undo_stage_hunk, "Undo Stage hunk")
-      map("n", "<leader>ghR", gs.reset_buffer, "Reset Buffer")
-      map("n", "<leader>ghp", gs.preview_hunk_inline, "Preview hunk Inline")
-      map("n", "<leader>ghb", function() gs.blame_line({ full = true }) end, "Blame line")
-      map("n", "<leader>ghd", gs.diffthis, "Diff This")
-      map("n", "<leader>ghD", function() gs.diffthis("~") end, "Diff This ~")
+      map({ "n", "v" }, "ghs", ":Gitsigns stage_hunk<CR>", "Stage hunk")
+      map({ "n", "v" }, "ghr", ":Gitsigns reset_hunk<CR>", "Reset hunk")
+      map("n", "ghS", gs.stage_buffer, "Stage Buffer")
+      map("n", "ghu", gs.undo_stage_hunk, "Undo Stage hunk")
+      map("n", "ghR", gs.reset_buffer, "Reset Buffer")
+      map("n", "ghp", gs.preview_hunk_inline, "Preview hunk Inline")
+      map("n", "ghb", function() gs.blame_line({ full = true }) end, "Blame line")
+      map("n", "ghd", gs.diffthis, "Diff This")
+      map("n", "ghD", function() gs.diffthis("~") end, "Diff This ~")
       map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "GitSigns Select hunk")
       end,
     },

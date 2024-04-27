@@ -16,7 +16,7 @@ return {
     -- flavour = "frappe",
     opts = {
       flaour = "frappe",
-      transparent_background = true,
+      transparent_background = false,
       color_overrides = {
         mocha = {
           text = "#F4CDE9",
