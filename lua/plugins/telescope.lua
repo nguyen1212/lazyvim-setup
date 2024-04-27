@@ -5,24 +5,35 @@ return {
     dependencies = {
       "nvim-telescope/telescope-live-grep-args.nvim",
     },
+    -- override lsp keymap must be set at init function
+    init = function()
+      local keys = require("lazyvim.plugins.lsp.keymaps").get()
+      keys[#keys + 1] = {
+        "gr",
+        function()
+          require("telescope.builtin").lsp_references({ file_ignore_patterns = { "%_test.go" } })
+        end,
+        desc = "Goto references",
+      }
+    end,
     keys = {
       { "<leader><leader>", false },
       { "<leader>/", false },
-      {
-        "<leader>ff",
-        function(opts)
-          opts = opts or {}
-          -- always find files from top level dir of git
-          local path = vim.loop.cwd() .. "/.git"
-          local ok, _ = vim.loop.fs_stat(path)
-          if ok then
-            opts.cwd = vim.fn.systemlist("git rev-parse --show-toplevel")[1]
-          end
-          opts.hidden = false
-          require("telescope.builtin").find_files(opts)
-        end,
-        desc = "Find files",
-      },
+      -- {
+      --   "<leader>ff",
+      --   function(opts)
+      --     opts = opts or {}
+      --     -- always find files from top level dir of git
+      --     local path = vim.loop.cwd() .. "/.git"
+      --     local ok, _ = vim.loop.fs_stat(path)
+      --     if ok then
+      --       opts.cwd = vim.fn.systemlist("git rev-parse --show-toplevel")[1]
+      --     end
+      --     opts.hidden = false
+      --     require("telescope.builtin").find_files(opts)
+      --   end,
+      --   desc = "Find files",
+      -- },
       {
         "<leader>fh",
         "<cmd>Telescope find_files hidden=true<CR>",
@@ -31,13 +42,17 @@ return {
       { "<leader>fb", "<cmd>Telescope buffers<CR>", desc = "Find buffers" },
       { "<leader>fn", "<cmd>Telescope noice<CR>", desc = "Find noice history" },
       {
-        "gr",
-        function()
-          require("telescope.builtin").lsp_references({
-            file_ignore_patterns = { "%_test.go" },
-          })
+        "<leader>ff",
+        function(opts)
+          opts = opts or {}
+          local cur_relative_path = LazyVim.root.get({ normalize = true })
+
+          opts.cwd = cur_relative_path
+          opts.hidden = false
+
+          require("telescope.builtin").find_files(opts)
         end,
-        desc = "Goto references",
+        desc = "Find Files (cwd)",
       },
       { "gy", "<cmd>Telescope lsp_type_definition<CR>", desc = "Goto type definition" },
       {
@@ -53,7 +68,10 @@ return {
         "<leader>fg",
         function(opts)
           opts = opts or {}
-          opts.cwd = vim.fn.systemlist("git rev-parse --show-toplevel")[1]
+          local cur_relative_path = LazyVim.root.get({ normalize = true })
+
+          opts.cwd = cur_relative_path
+          opts.hidden = false
           require("telescope").extensions.live_grep_args.live_grep_args(opts)
         end,
         desc = "Grep strings",
@@ -74,8 +92,14 @@ return {
         end,
         desc = "Find symbols",
       },
+      -- {
+      --   "<leader>h",
+      --   function()
+      --     vim.cmd("Telescope harpoon marks")
+      --   end,
+      --   desc = "Find harpoon marks",
+      -- },
       { "gb", "<cmd>Telescope git_branches<CR>", desc = "Find git branches" },
-      { "<leader>fp", "<cmd>Telescope neovim-project discover<CR>", desc = "Find projects" },
     },
     opts = {
       defaults = {

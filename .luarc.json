@@ -1,6 +1,7 @@
 {
     "diagnostics.globals": [
         "sleeper",
-        "vim"
+        "vim",
+        "LazyVim"
     ]
 }

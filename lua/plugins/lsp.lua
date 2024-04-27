@@ -5,25 +5,11 @@ return {
     dependencies = {
       "hrsh7th/nvim-cmp",
     },
-    keys = {
-      {
-        "<S-k>",
-        function()
-          require("cmp.entry").get_documentation()
-        end,
-        desc = "LSP documentation",
-      },
-      {
-        "<C-k>",
-        function()
-          vim.lsp.buf.signature_help()
-        end,
-        mode = { "i" },
-        desc = "LSP signature help",
-      },
-    },
+    keys = {},
     opts = {
       servers = {
+        -- csharp_ls = {},
+        vuels = {},
         gopls = {
           keys = {
             -- Workaround for the lack of a DAP strategy in neotest-go: https://github.com/nvim-neotest/neotest-go/issues/12
@@ -44,12 +30,12 @@ return {
               },
               hints = {
                 assignVariableTypes = true,
-                compositeLiteralFields = true,
-                compositeLiteralTypes = true,
+                compositeLiteralFields = false,
+                compositeLiteralTypes = false,
                 constantValues = true,
-                functionTypeParameters = true,
-                parameterNames = true,
-                rangeVariableTypes = true,
+                functionTypeParameters = false,
+                parameterNames = false,
+                rangeVariableTypes = false,
               },
               analyses = {
                 assign = false,

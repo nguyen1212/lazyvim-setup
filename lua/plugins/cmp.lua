@@ -3,7 +3,6 @@ return {
   {
     "hrsh7th/nvim-cmp",
     version = false, -- last release is way too old
-    event = "InsertEnter",
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-buffer",
@@ -12,6 +11,8 @@ return {
     opts = function(_, opts)
       local cmp = require("cmp")
       local types = require("cmp.types")
+
+      opts = opts or {}
 
       opts.preselect = types.cmp.PreselectMode.None
       opts.completion = {
@@ -56,34 +57,6 @@ return {
           fallback()
         end,
       })
-      opts.sources = cmp.config.sources({
-        {
-          name = "nvim_lsp",
-          group_index = 1,
-          priority = 100,
-        },
-        {
-          name = "copilot",
-          group_index = 1,
-          priority = 100,
-        },
-        {
-          name = "path",
-          group_index = 2,
-          priority = 90,
-        },
-      }, {
-        { name = "buffer" },
-      })
-      opts.formatting = {
-        format = function(_, item)
-          local icons = require("lazyvim.config").icons.kinds
-          if icons[item.kind] then
-            item.kind = icons[item.kind]
-          end
-          return item
-        end,
-      }
     end,
   },
   {
