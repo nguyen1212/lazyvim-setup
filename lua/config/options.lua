@@ -5,7 +5,7 @@ vim.opt.guicursor = ""
 -- vim.opt.guifont = "JetBrains Mono"
 
 vim.opt.nu = true
-vim.opt.relativenumber = true
+vim.opt.relativenumber = false
 
 vim.opt.hlsearch = true
 vim.opt.incsearch = true
@@ -29,11 +29,14 @@ vim.opt.laststatus = 2
 
 vim.opt.cursorline = true
 
--- vim.opt.hidden = true
+vim.opt.hidden = true
 
 vim.opt.confirm = true
 
 vim.opt.timeoutlen = 1000
 
+-- show tabs (0: not shown)
+vim.opt.showtabline = 0
+
 -- set transparency density
-vim.opt.pumblend = 1
+-- vim.opt.pumblend = 1
