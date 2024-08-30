@@ -1,18 +1,37 @@
 return {
-  -- servers
+  -- language servers
   {
     "neovim/nvim-lspconfig",
-    dependencies = {
-      "mason.nvim",
-      "williamboman/mason-lspconfig.nvim",
-    },
+    keys = {},
     opts = {
+      diagnostics = {
+        underline = true,
+        virtual_text = false,
+        float = false,
+      },
       servers = {
+        -- csharp_ls = {},
+        marksman = {},
+        vuels = {},
         gopls = {
+          -- cmd = {
+          --   "gopls",
+          --   "-rpc.trace",
+          --   "serve",
+          --   "--debug=localhost:6060",
+          -- },
           keys = {
             -- Workaround for the lack of a DAP strategy in neotest-go: https://github.com/nvim-neotest/neotest-go/issues/12
-            -- { "<leader>td", "<cmd>lua require('dap-go').debug_test()<CR>", desc = "Debug Nearest (Go)" },
+            { "<leader>td", false },
+            {
+              "<leader>co",
+              LazyVim.lsp.action["source.organizeImports"],
+              desc = "Organize Imports",
+            },
           },
+          -- flags = {
+          --   debounce_text_changes = 500, -- Increase debounce time
+          -- },
           settings = {
             gopls = {
               gofumpt = true,
@@ -28,16 +47,16 @@ return {
               },
               hints = {
                 assignVariableTypes = true,
-                compositeLiteralFields = true,
-                compositeLiteralTypes = true,
+                compositeLiteralFields = false,
+                compositeLiteralTypes = false,
                 constantValues = true,
-                functionTypeParameters = true,
-                parameterNames = true,
-                rangeVariableTypes = true,
+                functionTypeParameters = false,
+                parameterNames = false,
+                rangeVariableTypes = false,
               },
               analyses = {
                 assign = false,
-                fieldalignment = false,
+                fieldalignment = true,
                 nilness = true,
                 unusedparams = true,
                 unusedwrite = true,
@@ -48,12 +67,25 @@ return {
               usePlaceholders = false,
               completeUnimported = true,
               staticcheck = true,
-              directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
+              directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules", "-**/tests" },
               semanticTokens = true,
+              analysisProgressReporting = true, -- false: stop indexing for new files (when written)
             },
           },
         },
       },
     },
+  },
+  {
+    "neovim/nvim-lspconfig",
+    opts = function()
+      local keys = require("lazyvim.plugins.lsp.keymaps").get()
+      keys[#keys + 1] = {
+        "<C-k>",
+        false,
+        mode = "i",
+        desc = "Signature help",
+      }
+    end,
   },
 }

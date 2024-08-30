@@ -1,0 +1,74 @@
+return {
+  -- {
+  --   "mfussenegger/nvim-lint",
+  --   opts = {
+  --     linters_by_ft = {
+  --       go = { "golangci-lint" },
+  --     },
+  --     linters = {
+  --       golangcilint = {
+  --         append_fname = true,
+  --         args = {
+  --           "run",
+  --           "--out-format",
+  --           "--config",
+  --           ".golangci.yml",
+  --         },
+  --       },
+  --       markdownlint = {
+  --         args = { "-q" },
+  --       },
+  --     },
+  --   },
+  --   keys = {
+  --     {
+  --       "<leader>li",
+  --       function()
+  --         local lint = require("lint")
+  --         lint.try_lint()
+  --       end,
+  --       desc = "Trigger linting for current file",
+  --     },
+  --   },
+  -- },
+  -- {
+  --   "mfussenegger/nvim-lint",
+  --   lazy = true,
+  --   event = { "BufReadPre", "BufNewFile" }, -- to disable, comment this out
+  --   opts = function(_, opts)
+  --     table.insert(opts.linters_by_ft, { go = { "golangci-lint" } })
+  --     table.insert(opts.linters, {
+  --       golangcilint = {
+  --         cmd = "golangci-lint",
+  --         append_fname = false,
+  --         args = {
+  --           "run",
+  --           "--out-format",
+  --           "json",
+  --           "--show-stats=false",
+  --           "--print-issued-lines=false",
+  --           "--print-linter-name=false",
+  --           function()
+  --             return vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":h")
+  --           end,
+  --           "--config",
+  --           ".golangci.yml",
+  --         },
+  --       },
+  --       markdownlint = {
+  --         args = { "-q" },
+  --       },
+  --     })
+  --   end,
+  --   keys = {
+  --     {
+  --       "<leader>li",
+  --       function()
+  --         local lint = require("lint")
+  --         lint.try_lint()
+  --       end,
+  --       desc = "Trigger linting for current file",
+  --     },
+  --   },
+  -- },
+}
