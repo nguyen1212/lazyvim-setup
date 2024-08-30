@@ -1,11 +1,183 @@
 return {
   {
     "folke/tokyonight.nvim",
-    config = function()
-      require("tokyonight").setup({
-        style = "night",
-        light_style = "day",
-      })
-    end,
+    enabled = true,
+    opts = {
+      style = "night",
+      light_style = "day",
+    },
+  },
+  {
+    "catppuccin/nvim",
+    lazy = true,
+    name = "catppuccin",
+    -- flavour = "frappe",
+    opts = {
+      flaour = "macchiato",
+      transparent_background = true,
+      -- color_overrides = {
+      --   macchiato = {
+      --     text = "#F4CDE9",
+      --     subtext1 = "#DEBAD4",
+      --     subtext0 = "#C8A6BE",
+      --     overlay2 = "#B293A8",
+      --     overlay1 = "#9C7F92",
+      --     overlay0 = "#866C7D",
+      --     surface2 = "#705867",
+      --     surface1 = "#5A4551",
+      --     surface0 = "#44313B",
+      --     base = "#352939",
+      --     mantle = "#211924",
+      --     crust = "#1a1016",
+      --   },
+      -- },
+      integrations = {
+        aerial = true,
+        alpha = true,
+        cmp = false,
+        dashboard = true,
+        flash = true,
+        gitsigns = true,
+        headlines = true,
+        illuminate = true,
+        indent_blankline = { enabled = true },
+        leap = true,
+        lsp_trouble = true,
+        mason = true,
+        markdown = true,
+        mini = true,
+        native_lsp = {
+          enabled = true,
+          underlines = {
+            errors = { "undercurl" },
+            hints = { "undercurl" },
+            warnings = { "undercurl" },
+            information = { "undercurl" },
+          },
+        },
+        navic = { enabled = true, custom_bg = "lualine" },
+        neotest = true,
+        neotree = true,
+        noice = true,
+        notify = true,
+        semantic_tokens = true,
+        telescope = true,
+        treesitter = true,
+        treesitter_context = true,
+        which_key = true,
+      },
+    },
+  },
+  -- {
+  --   "catppuccin/nvim",
+  --   lazy = true,
+  --   name = "catppuccin",
+  --   opts = {
+  --     transparent_background = true,
+  --     highlight_overrides = {
+  --       all = function(colors)
+  --         return {
+  --           CurSearch = { bg = colors.sky },
+  --           IncSearch = { bg = colors.sky },
+  --           CursorLineNr = { fg = colors.blue, style = { "bold" } },
+  --           DashboardFooter = { fg = colors.overlay0 },
+  --           TreesitterContextBottom = { style = {} },
+  --           WinSeparator = { fg = colors.overlay0, style = { "bold" } },
+  --           ["@markup.italic"] = { fg = colors.blue, style = { "italic" } },
+  --           ["@markup.strong"] = { fg = colors.blue, style = { "bold" } },
+  --           Headline = { style = { "bold" } },
+  --           Headline1 = { fg = colors.blue, style = { "bold" } },
+  --           Headline2 = { fg = colors.pink, style = { "bold" } },
+  --           Headline3 = { fg = colors.lavender, style = { "bold" } },
+  --           Headline4 = { fg = colors.green, style = { "bold" } },
+  --           Headline5 = { fg = colors.peach, style = { "bold" } },
+  --           Headline6 = { fg = colors.flamingo, style = { "bold" } },
+  --           rainbow1 = { fg = colors.blue, style = { "bold" } },
+  --           rainbow2 = { fg = colors.pink, style = { "bold" } },
+  --           rainbow3 = { fg = colors.lavender, style = { "bold" } },
+  --           rainbow4 = { fg = colors.green, style = { "bold" } },
+  --           rainbow5 = { fg = colors.peach, style = { "bold" } },
+  --           rainbow6 = { fg = colors.flamingo, style = { "bold" } },
+  --         }
+  --       end,
+  --     },
+  --     color_overrides = {
+  --       macchiato = {
+  --         rosewater = "#F5B8AB",
+  --         flamingo = "#F29D9D",
+  --         pink = "#AD6FF7",
+  --         mauve = "#FF8F40",
+  --         red = "#E66767",
+  --         maroon = "#EB788B",
+  --         peach = "#FAB770",
+  --         yellow = "#FACA64",
+  --         green = "#70CF67",
+  --         teal = "#4CD4BD",
+  --         sky = "#61BDFF",
+  --         sapphire = "#4BA8FA",
+  --         blue = "#00BFFF",
+  --         lavender = "#00BBCC",
+  --         text = "#C1C9E6",
+  --         subtext1 = "#A3AAC2",
+  --         subtext0 = "#8E94AB",
+  --         overlay2 = "#7D8296",
+  --         overlay1 = "#676B80",
+  --         overlay0 = "#464957",
+  --         surface2 = "#3A3D4A",
+  --         surface1 = "#2F313D",
+  --         surface0 = "#1D1E29",
+  --         base = "#0b0b12",
+  --         mantle = "#11111a",
+  --         crust = "#191926",
+  --       },
+  --     },
+  --     integrations = {
+  --       telescope = {
+  --         enabled = true,
+  --         style = "nvchad",
+  --       },
+  --     },
+  --   },
+  -- },
+  {
+    "ellisonleao/gruvbox.nvim",
+    opts = {
+      italic = {
+        strings = false,
+      },
+      inverse = true,
+      contrast = "",
+      transparent_mode = true,
+    },
+  },
+  {
+    "rose-pine/neovim",
+    name = "rose-pine",
+    opts = {
+      enable = {
+        transparency = true,
+      },
+      styles = {
+        transparency = true,
+      },
+    },
+  },
+  {
+    "olimorris/onedarkpro.nvim",
+    priority = 1000, -- Ensure it loads first
+  },
+  {
+    "diegoulloao/neofusion.nvim",
+    priority = 1000,
+    config = true,
+    opts = {
+      transparent_mode = true,
+    },
+  },
+  {
+    "LazyVim/LazyVim",
+    opts = {
+      colorscheme = "catppuccin",
+    },
   },
 }
