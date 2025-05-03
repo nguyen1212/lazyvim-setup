@@ -50,6 +50,10 @@ vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
 vim.keymap.set({ "n", "v" }, "<leader><S-d>", [["_dd]])
 vim.keymap.set({ "n", "v" }, "<leader>c", [["_c]])
 vim.keymap.set({ "n", "v" }, "<leader>p", [["_dP]])
+vim.keymap.set({ "n", "v" }, "d0", "d$")
+vim.keymap.set({ "n", "v" }, "d9", "d0", { noremap = true })
+vim.keymap.set({ "n", "v" }, "c0", "c$")
+vim.keymap.set({ "n", "v" }, "c9", "c0", { noremap = true })
 
 -- buffer (use shift to remove delay because of other keymap)
 vim.keymap.set("n", "<S-l>", ":bnext<CR>", silentOpt)
@@ -107,7 +111,7 @@ vim.keymap.set("v", "<leader>/", "gc", { remap = true, silent = true })
 vim.keymap.set("n", "<C-a>", "ggVG", silentOpt)
 
 -- session
-vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>", { remap = false })
+--vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>", { remap = false })
 
 -- diagnostic
 vim.keymap.set("n", "<leader>rd", function()

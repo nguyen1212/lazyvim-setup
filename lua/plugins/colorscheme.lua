@@ -108,6 +108,18 @@ return {
     },
   },
   {
+    "iruzo/matrix-nvim",
+    config = function(opts)
+      opts = opts or {}
+
+      vim.g.matrix_disable_background = true
+
+      return opts
+
+      -- opts.matrix_disable_background = true
+    end,
+  },
+  {
     "LazyVim/LazyVim",
     opts = {
       colorscheme = "catppuccin",

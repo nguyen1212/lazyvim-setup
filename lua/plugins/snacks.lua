@@ -66,6 +66,12 @@ return {
   "HakonHarnes/img-clip.nvim",
   event = "VeryLazy",
   ft = "markdown",
+  opts = {
+    default = {
+      extension = "avif",
+      process_cmd = "convert - -resize 50% -",
+    },
+  },
   -- opts = {
   --   -- add options here
   --   -- or leave it empty to use the default settings

@@ -55,10 +55,11 @@ return {
   {
     "pwntester/octo.nvim",
     opts = {
-      users = "assignable",
+      users = "search",
       pull_requests = {
         always_select_remote_on_create = false,
       },
+      timeout = 3000,
     },
     keys = {
       { "<leader>gp", false },

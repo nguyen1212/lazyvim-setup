@@ -15,6 +15,7 @@ return {
       },
       {
         "<S-h>",
+        false,
         function()
           local ui = require("toggleterm.ui")
           local terms = require("toggleterm.terminal").get_all(true)
@@ -50,6 +51,7 @@ return {
       },
       {
         "<S-l>",
+        false,
         function()
           local ui = require("toggleterm.ui")
           local terms = require("toggleterm.terminal").get_all(true)
